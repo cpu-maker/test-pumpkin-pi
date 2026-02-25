@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: white;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+#bootScreen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginScreen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#desktop {
+    height: 100vh;
+    background: linear-gradient(135deg, #111, #222);
+}
+
+#taskbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#widget {
+    margin: 50px;
+    padding: 20px;
+    background: rgba(255, 122, 0, 0.2);
+    border-radius: 12px;
+}
