@@ -1,21 +1,22 @@
 const correctPin = "0000";
 
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function () {
+
     setTimeout(() => {
-        document.getElementById("bootScreen").classList.add("hidden");
-        document.getElementById("loginScreen").classList.remove("hidden");
+        document.getElementById("bootScreen").style.display = "none";
+        document.getElementById("loginScreen").style.display = "flex";
     }, 2000);
 
     setInterval(updateClock, 1000);
-};
+});
 
 function checkPin() {
     const input = document.getElementById("pinInput").value;
     const message = document.getElementById("loginMessage");
 
     if (input === correctPin) {
-        document.getElementById("loginScreen").classList.add("hidden");
-        document.getElementById("desktop").classList.remove("hidden");
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("desktop").style.display = "block";
     } else {
         message.textContent = "Incorrect PIN";
     }
@@ -23,6 +24,8 @@ function checkPin() {
 
 function updateClock() {
     const now = new Date();
-    document.getElementById("clock").textContent =
-        now.toLocaleTimeString();
+    const clock = document.getElementById("clock");
+    if (clock) {
+        clock.textContent = now.toLocaleTimeString();
+    }
 }
