@@ -10,15 +10,7 @@ body {
     display: none;
 }
 
-#bootScreen {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#loginScreen {
+#bootScreen, #loginScreen {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -28,7 +20,7 @@ body {
 
 #desktop {
     height: 100vh;
-    background: linear-gradient(135deg, #111, #222);
+    transition: background 0.5s;
 }
 
 #taskbar {
@@ -43,8 +35,20 @@ body {
 }
 
 #widget {
-    margin: 50px;
+    position: absolute;
+    top: 80px;
+    left: 50px;
     padding: 20px;
     background: rgba(255, 122, 0, 0.2);
     border-radius: 12px;
+    cursor: grab;
+}
+
+#settingsPanel {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
 }
