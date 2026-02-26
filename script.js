@@ -1,21 +1,27 @@
-const correctPin = "0000";
+const PIN = "0000";
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
+    // Boot sequence
     setTimeout(() => {
-        document.getElementById("bootScreen").style.display = "none";
-        document.getElementById("loginScreen").style.display = "flex";
+        document.getElementById("boot").style.display = "none";
+        document.getElementById("login").style.display = "flex";
     }, 2000);
 
     setInterval(updateClock, 1000);
-    enableDrag();
+    detectHardware();
+    animateBars();
 });
 
-function checkPin() {
-    const input = document.getElementById("pinInput").value;
-    if (input === correctPin) {
-        document.getElementById("loginScreen").style.display = "none";
+function unlock() {
+    const input = document.getElementById("pin").value;
+    const msg = document.getElementById("loginMsg");
+
+    if (input === PIN) {
+        document.getElementById("login").style.display = "none";
         document.getElementById("desktop").style.display = "block";
+    } else {
+        msg.textContent = "Incorrect PIN";
     }
 }
 
@@ -25,31 +31,53 @@ function updateClock() {
     if (clock) clock.textContent = now.toLocaleTimeString();
 }
 
-function toggleSettings() {
-    document.getElementById("settingsPanel").classList.toggle("hidden");
+function detectHardware() {
+    document.getElementById("cpuCores").textContent =
+        navigator.hardwareConcurrency || "Unknown";
+
+    document.getElementById("ram").textContent =
+        navigator.deviceMemory || "Unknown";
+
+    let gpuName = "Unknown";
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl");
+
+    if (gl) {
+        const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+        if (debugInfo) {
+            gpuName = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        }
+    }
+
+    document.getElementById("gpu").textContent = gpuName;
 }
 
-function changeTheme(theme) {
+function animateBars() {
+    setInterval(() => {
+        document.getElementById("cpuBar").style.width =
+            Math.random() * 100 + "%";
+
+        document.getElementById("ramBar").style.width =
+            Math.random() * 100 + "%";
+    }, 1000);
+}
+
+function toggleSettings() {
+    document.getElementById("settings").classList.toggle("hidden");
+}
+
+function setTheme(theme) {
     const desktop = document.getElementById("desktop");
 
     if (theme === "dark")
-        desktop.style.background = "linear-gradient(135deg, #111, #222)";
+        desktop.style.background = "linear-gradient(#111,#222)";
     if (theme === "orange")
-        desktop.style.background = "linear-gradient(135deg, #1a0f00, #ff7a00)";
+        desktop.style.background = "linear-gradient(#1a0f00,#ff7a00)";
     if (theme === "purple")
-        desktop.style.background = "linear-gradient(135deg, #1a001a, #8000ff)";
+        desktop.style.background = "linear-gradient(#1a001a,#8000ff)";
 }
 
-function changeTransparency(value) {
+function setTransparency(value) {
     document.getElementById("taskbar").style.background =
-        `rgba(0, 0, 0, ${value})`;
-}
-
-function enableDrag() {
-    const widget = document.getElementById("widget");
-
-    widget.addEventListener("dragend", function (e) {
-        widget.style.left = e.pageX + "px";
-        widget.style.top = e.pageY + "px";
-    });
+        `rgba(0,0,0,${value})`;
 }
