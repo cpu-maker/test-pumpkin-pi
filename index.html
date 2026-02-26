@@ -19,16 +19,34 @@
 </div>
 
 <div id="desktop" class="hidden">
+
     <div id="taskbar">
         <span>🎃 PumpkinPi</span>
         <span id="clock"></span>
+        <button onclick="toggleSettings()">⚙</button>
     </div>
 
-    <div id="widget">
+    <div id="widget" draggable="true">
         <h3>System Monitor</h3>
         <p>CPU: Simulated</p>
         <p>RAM: Simulated</p>
     </div>
+
+    <div id="settingsPanel" class="hidden">
+        <h3>Settings</h3>
+
+        <label>Theme:</label>
+        <select onchange="changeTheme(this.value)">
+            <option value="dark">Dark</option>
+            <option value="orange">Orange</option>
+            <option value="purple">Purple</option>
+        </select>
+
+        <label>Taskbar Transparency:</label>
+        <input type="range" min="0.2" max="1" step="0.1"
+               onchange="changeTransparency(this.value)">
+    </div>
+
 </div>
 
 <script src="script.js"></script>
